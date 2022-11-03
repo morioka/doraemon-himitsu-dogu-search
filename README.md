@@ -89,7 +89,7 @@ poetry run streamlit run doraemon_himitsu_dogu_search/app.py
 ## メモ (2022-11-03, morioka)
 
 - 勤務先で確認しようとすると、またいくつものproxy ... apt, java, elasticsearch, pip, .... が課題になる。
-- 事前確認として、自宅 Ubuntu20.04/WSL2 で作業した内容をいかに示す。
+- 事前確認として、自宅 Ubuntu20.04/WSL2 で作業した内容を以下に示す。
 - 動作させるにはいくつか修正が必要だった。
 
 ### `make run-es` 関連のエラー
@@ -130,10 +130,10 @@ poetry install
 別のコンテナ環境に追い出すのが素直だったかもしれない。
 
 ### `make build-index` 関連のエラー
-- `poetry run pyhton $(SRC)/sentents_bert_vectorizer.py` でエラー
+- `poetry run pyhton $(SRC)/sentents_bert_vectorizer.py` で OOM エラー
   - 原因: おそらくメモリ不足
   - 対策: encode を複数回に分けるようコード修正
-    - これでも make で呼び出した場合などはメモリ不足に陥る。indexerを実行するまでは es を起動せずに 1ステップずつ実行するのがよい
+    - これでも make から呼び出した場合などはメモリ不足に陥る。indexerを実行するまでは es を起動せずに 1ステップずつ実行するのがよさそう
   - 対策2: 実際には加工済のデータが置かれている。これをそのまま使える。
     - `data/output/himitsu_dogu_sentens_vector.npy` 
 - ~~`poetry run python $(SRC)/indexer.py` でエラー~~
