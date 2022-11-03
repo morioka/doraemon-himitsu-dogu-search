@@ -16,11 +16,14 @@ def main():
         himitsu_dogu["name"] + " " + himitsu_dogu["description"] for himitsu_dogu in himitsu_dogus
     ]
     print("Start BERT encode")
-    sentence_embeddings = model.encode(himitsu_docs_descriptions, batch_size=32)
+
+    n = 320
+    himitsu_docs_data = [ himitsu_docs_descriptions[idx: idx + n] for idx in range(0,len(himitsu_docs_descriptions), n)]
+    sentence_embeddings = np.vstack([model.encode(himitsu_docs, batch_size=32).cpu().detach().numpy() for himitsu_docs in himitsu_docs_data])
     print("End BERT encode")
 
     print("Start serialization as numpy file")
-    np.save(SENTENTS_VECTOR_DATA_PATH, sentence_embeddings.cpu().detach().numpy())
+    np.save(SENTENTS_VECTOR_DATA_PATH, sentence_embeddings)
     print("End serialization")
 
 

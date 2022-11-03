@@ -132,8 +132,9 @@ poetry install
 ### `make build-index` 関連のエラー
 - `poetry run pyhton $(SRC)/sentents_bert_vectorizer.py` でエラー
   - 原因: おそらくメモリ不足
-  - 対策: バッチサイズ変更は効果なし。encodeを複数回に分けるようコード修正するしかない
-  - 対策2: 実際には加工済のデータが置かれている。これがそのまま使えるので、この動作は不要。
+  - 対策: encode を複数回に分けるようコード修正
+    - これでも make で呼び出した場合などはメモリ不足に陥る。indexerを実行するまでは es を起動せずに 1ステップずつ実行するのがよい
+  - 対策2: 実際には加工済のデータが置かれている。これをそのまま使える。
     - `data/output/himitsu_dogu_sentens_vector.npy` 
 - ~~`poetry run python $(SRC)/indexer.py` でエラー~~
   - ~~原因: おそらくesへの接続時に指定するサーバ証明書が不適当~~
