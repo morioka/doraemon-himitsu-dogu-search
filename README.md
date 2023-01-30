@@ -86,13 +86,13 @@ poetry run streamlit run doraemon_himitsu_dogu_search/app.py
 - [Elasticsearchの近似近傍探索を使って、ドラえもんのひみつ道具検索エンジンを作ってみた \| 🦅 hurutoriya](https://shunyaueta.com/posts/2022-10-23-2344/) in Japanese
 - [Elasticsearch 8\.4 から利用可能な従来の検索機能と近似近傍探索を組み合わせたハイブリッド検索を試す \| 🦅 hurutoriya](https://shunyaueta.com/posts/2022-10-29-2337/) in Japanese
 
-## メモ (2022-11-03, morioka)
+## メモ (2022-11-03, morioka) (2023-01-30更新)
 
 - 勤務先で確認しようとすると、またいくつものproxy ... apt, java, elasticsearch, pip, .... が課題になる。
 - 事前確認として、自宅 Ubuntu20.04/WSL2 で作業した内容を以下に示す。
 - 動作させるにはいくつか修正が必要だった。
 
-### `make run-es` 関連のエラー
+### `make run-es` 関連の不具合
 - `es01`がないとエラー
   - 原因: コンテナ `es01` を作り直すためにいったん削除するが、初回は存在しないのでエラー
   - 対策: `docker rm` でなく `docker rm -f` を利用する
@@ -107,20 +107,10 @@ poetry run streamlit run doraemon_himitsu_dogu_search/app.py
     - [docker起動時にエラー「[1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]」が発生した場合の対処法 | mebee](https://mebee.info/2020/04/13/post-9135/)
     - `sudo sysctl -w vm.max_map_count=262144`
 
-### `make build-index` 関連のエラー
-
-- CUDA out of memory
-  - 原因: RTX3060-12G では不足
-  - 対策1: ひとまずGPUを使わずCPUで対応。 `export CUDA_VISIBLE_DEVICES=`
-  - 対策2: bertでエンコードする際の分割数を変更。 `n=320` -> `n=160`
-
-
-### poetry環境の用意
-
-これが一番の難点だった。自分が pyenv + pyenv-virtualenv 環境を常用しているせいと、ubuntu20.04標準ではpython 3.8だが、今回はpython 3.10を必要とするせいだろう、巷の記事とは異なる挙動を示していた。
-
-最終的には pyenv + pyenv-virtualenv で作成したpython仮想環境で poetry を利用する形で動作した。これがベストかはわからない。以下にそのまま示す。
-
+### `make build-index` 関連の不具合
+- poetry環境の用意
+  - これが一番の難点だった。自分が pyenv + pyenv-virtualenv 環境を常用しているせいと、ubuntu20.04標準ではpython 3.8だが、今回はpython 3.10を必要とするせいだろう、巷の記事とは異なる挙動を示していた。
+  - 最終的には pyenv + pyenv-virtualenv で作成したpython仮想環境で poetry を利用する形で動作した。これがベストかはわからない。以下にそのまま示す。別のコンテナ環境に追い出すのが素直だったかもしれない。
 ```bash
 cd doraemon-himitsu-dogu-search
 pyenv install 3.10.8
@@ -134,27 +124,21 @@ pip install poetry
 poetry install
 # poetry で、必要なパッケージと依存関係をインストール
 ```
-
-別のコンテナ環境に追い出すのが素直だったかもしれない。
-
-### `make build-index` 関連のエラー
 - `poetry run pyhton $(SRC)/sentents_bert_vectorizer.py` で OOM エラー
-  - 原因: おそらくメモリ不足
+  - 原因: おそらくCPUメモリ不足
   - 対策: encode を複数回に分けるようコード修正
-    - これでも make から呼び出した場合などはメモリ不足に陥る。indexerを実行するまでは es を起動せずに 1ステップずつ実行するのがよさそう
+    - これでも make から呼び出した場合などはメモリ不足に陥る。indexerを実行するまでは es を起動せずに 1ステップずつ実行するのがよさそう (32GB RAMの場合)
   - 対策2: 実際には加工済のデータが置かれている。これをそのまま使える。
     - `data/output/himitsu_dogu_sentens_vector.npy` 
-- ~~`poetry run python $(SRC)/indexer.py` でエラー~~
-  - ~~原因: おそらくesへの接続時に指定するサーバ証明書が不適当~~
-  - ~~対策: 暫定的にサーバ証明書をチェックしない~~
-    - ~~[python - elastic_transport.TlsError: TLS error caused by:TlsError(TLS error caused by: SSLError([SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:852))) - Stack Overflow](https://stackoverflow.com/questions/71805911/elastic-transport-tlserror-tls-error-caused-bytlserrortls-error-caused-by-ss~~
-))
-  - ~~対策2: `make get-es-cert` を改めて実行し、サーバ証明書を再取得する。~~
+- `poetry run pyhton $(SRC)/sentents_bert_vectorizer.py` で CUDA out of memory
+  - 原因: RTX3060-12G では不足
+  - 対策1: ひとまずGPUを使わずCPUで対応。 `export CUDA_VISIBLE_DEVICES=`
+  - 対策2: bertでエンコードする際の分割数を変更。 `n=320` -> `n=160`
+
 
 ### その他
-- 形態素解析器に sudachi でなく kuromoji を用いている
-  - elasticsearch7.8 より新しいものに対しては sudachi プラグインは自前でビルドする必要がある。
-  - [任意のバージョンのElasticsearchでSudachiプラグインを使う - 🤖](https://kotaroooo0-dev.hatenablog.com/entry/elasticsearch712-sudachi)
-  - [WorksApplications/elasticsearch-sudachi: The Japanese analysis plugin for elasticsearch](https://github.com/WorksApplications/elasticsearch-sudachi)
+- elasticsarch 8.4 から elasticsearch 8.6 にアップデート。client API変更に追従した。
+- analyzer に [elasticsearch-sudachi](https://github.com/WorksApplications/elasticsearch-sudachi) を用いるよう修正した。
 - コンテナ `es01` にはボリューム `-v /usr/share/elasticsearch/data` が指定されている。指定方法からわかるように、このボリュームは揮発性である。
+- `sentents_bert.py` など、 "sentence" でなく、わざと "sentents" ?
 
