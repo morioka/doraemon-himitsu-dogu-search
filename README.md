@@ -88,10 +88,14 @@ poetry run streamlit run doraemon_himitsu_dogu_search/app.py
 - [Elasticsearchの近似近傍探索を使って、ドラえもんのひみつ道具検索エンジンを作ってみた \| 🦅 hurutoriya](https://shunyaueta.com/posts/2022-10-23-2344/) in Japanese
 - [Elasticsearch 8\.4 から利用可能な従来の検索機能と近似近傍探索を組み合わせたハイブリッド検索を試す \| 🦅 hurutoriya](https://shunyaueta.com/posts/2022-10-29-2337/) in Japanese
 
+----
+
 ## メモ (2022-11-03, morioka) (2023-01-30更新)
 
 - 勤務先で確認しようとすると、またいくつものproxy ... apt, java, elasticsearch, pip, .... が課題になる。
-- 事前確認として、自宅 Ubuntu20.04/WSL2 で作業した内容を以下に示す。
+- 事前確認として、自宅 Ubuntu20.04/WSL2 で作業した内容を以下に示す。  
+  - (2022-11-03) Lenovo ThinkPad E495, RAM 32GB, GPU なし, Windows10 Home + WSL2 + Ubuntu20.04
+  - (2023-01-30) Lenovo Legion T5 26IAB7 , RAM 80GB, GPU RTX3060-12G, Windows11 Home + WSL2 + Ubuntu22.04
 - 動作させるにはいくつか修正が必要だった。
 
 ### `make run-es` 関連の不具合
