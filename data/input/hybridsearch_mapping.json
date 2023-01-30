@@ -1,6 +1,14 @@
 {
     "settings": {
         "analysis": {
+          "tokenizer": {
+            "sudachi_tokenizer": {
+              "sudachi_split": "search",
+              "type": "sudachi_tokenizer",
+              "discard_punctuation": true,
+              "additional_settings": "{\"systemDict\":\"system_full.dic\"}"
+            }
+          },
           "analyzer": {
             "custome_ja_analyzer": {
               "type": "custom",
@@ -15,10 +23,15 @@
                 "kuromoji_number",
                 "kuromoji_stemmer"
               ]
+            }, 
+            "sudachi_analyzer": {
+              "filter": [],
+              "type": "custom",
+              "tokenizer": "sudachi_tokenizer"
             }
           }
         }
-      },
+    },
     "mappings":{
        "properties":{
           "vector":{
@@ -29,15 +42,15 @@
           },
           "name":{
              "type":"text",
-             "analyzer": "custome_ja_analyzer"
+             "analyzer": "sudachi_analyzer"
           },
           "yomi":{
             "type":"text",
-            "analyzer": "custome_ja_analyzer"
+            "analyzer": "sudachi_analyzer"
          },
           "description":{
             "type":"text",
-            "analyzer": "custome_ja_analyzer"
+            "analyzer": "sudachi_analyzer"
          }
        }
     }
