@@ -127,20 +127,22 @@ poetry install
 # poetry で、必要なパッケージと依存関係をインストール
 ```
 - `poetry run pyhton $(SRC)/sentents_bert_vectorizer.py` で OOM エラー
-  - 原因: おそらくCPUメモリ不足
+  - 原因: CPUメモリ不足 (32GB RAMの場合)
   - 対策: encode を複数回に分けるようコード修正
-    - これでも make から呼び出した場合などはメモリ不足に陥る。indexerを実行するまでは es を起動せずに 1ステップずつ実行するのがよさそう (32GB RAMの場合)
+    - これでも make から呼び出した場合などはメモリ不足に陥る。indexerを実行するまでは es を起動せずに 1ステップずつ実行するのがよさそうである。
   - 対策2: 実際には加工済のデータが置かれている。これをそのまま使える。
     - `data/output/himitsu_dogu_sentens_vector.npy` 
 - `poetry run pyhton $(SRC)/sentents_bert_vectorizer.py` で CUDA out of memory
   - 原因: RTX3060-12G では不足
-  - 対策1: ひとまずGPUを使わずCPUで対応。 `export CUDA_VISIBLE_DEVICES=`
-  - 対策2: bertでエンコードする際の分割数を変更。 `n=320` -> `n=160`
+  - 対策1: GPUを使わずCPUで対応する。 `export CUDA_VISIBLE_DEVICES=`
+  - 対策2: bertでエンコードする際の分割数を変更する。 `n=320` -> `n=160`
 
+### その他 (2022-11-03)
+- コンテナ `es01` にはボリューム `-v /usr/share/elasticsearch/data` が指定されている。指定方法からわかるように、このボリュームは揮発性である。
 
-### その他
+### その他 (2023-01-30)
+
 - elasticsarch 8.4 から elasticsearch 8.6 にアップデート。client API変更に追従した。
 - analyzer に [elasticsearch-sudachi](https://github.com/WorksApplications/elasticsearch-sudachi) を指定できるよう修正した。
-- コンテナ `es01` にはボリューム `-v /usr/share/elasticsearch/data` が指定されている。指定方法からわかるように、このボリュームは揮発性である。
 - `sentents_bert.py` など、 "sentence" でなく、わざと "sentents" ?
 
