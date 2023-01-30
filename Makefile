@@ -19,7 +19,7 @@ fmt:
 run-es:
 	@docker rm -f es01
 	@docker build --tag=es .
-	@docker run --name es01 -p 9200:9200 -p 9300:9300 -it -v /usr/share/elasticsearch/data es
+	@docker run --name es01 -p 9200:9200 -p 9300:9300 -it -v /usr/share/elasticsearch/data -e "discovery.type=single-node" es
 
 .PHONY: get-es-cert
 get-es-cert: 
