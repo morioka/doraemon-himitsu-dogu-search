@@ -140,7 +140,7 @@ poetry install
 
 ### その他
 - elasticsarch 8.4 から elasticsearch 8.6 にアップデート。client API変更に追従した。
-- analyzer に [elasticsearch-sudachi](https://github.com/WorksApplications/elasticsearch-sudachi) を用いるよう修正した。
+- analyzer に [elasticsearch-sudachi](https://github.com/WorksApplications/elasticsearch-sudachi) を指定できるよう修正した。
 - コンテナ `es01` にはボリューム `-v /usr/share/elasticsearch/data` が指定されている。指定方法からわかるように、このボリュームは揮発性である。
 - `sentents_bert.py` など、 "sentence" でなく、わざと "sentents" ?
 
