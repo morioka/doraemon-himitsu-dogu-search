@@ -33,7 +33,7 @@ if __name__ == "__main__":
         basic_auth=(ELASTIC_USER, ELASTIC_PASSWORD),
     )
 
-    es.indices.create(index=INDEX_NAME, body=mapping)
+    es.indices.create(index=INDEX_NAME, mappings=mapping["mappings"], settings=mapping["settings"])
 
     for himitsu_dogu, vector in tqdm(zip(himitsu_dogus, himitsu_dogu_sentents_vectors)):
         himitsu_dogu["vector"] = vector.tolist()

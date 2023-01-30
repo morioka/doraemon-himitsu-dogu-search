@@ -46,9 +46,9 @@ def main():
         },
     }
 
-    multimatch_result = es.search(index=INDEX_NAME, body=multimatch_query)
-    ann_result = es.search(index=INDEX_NAME, body=ann_query)
-    hybrid_result = es.search(index=INDEX_NAME, body=hybrid_query)
+    multimatch_result = es.search(index=INDEX_NAME, query=multimatch_query["query"], size=multimatch_query["size"])
+    ann_result = es.search(index=INDEX_NAME, knn=ann_query["knn"])
+    hybrid_result = es.search(index=INDEX_NAME, query=hybrid_query["query"], size=hybrid_query["size"], knn=hybrid_query["knn"])
     multimatch_serp: dict = [
         {
             "スコア": document["_score"],

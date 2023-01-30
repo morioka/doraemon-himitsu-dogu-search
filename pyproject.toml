@@ -20,7 +20,7 @@ flake8-black = "^0.3.3"
 numpy = "^1.23.4"
 transformers = "^4.23.1"
 tqdm = "^4.64.1"
-elasticsearch = "^8.4.3"
+elasticsearch = "^8.6.0"
 streamlit = "^1.13.0"
 
 [tool.poetry.dev-dependencies]
