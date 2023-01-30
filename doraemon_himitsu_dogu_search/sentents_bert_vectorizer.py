@@ -17,7 +17,7 @@ def main():
     ]
     print("Start BERT encode")
 
-    n = 320
+    n = 160
     himitsu_docs_data = [ himitsu_docs_descriptions[idx: idx + n] for idx in range(0,len(himitsu_docs_descriptions), n)]
     sentence_embeddings = np.vstack([model.encode(himitsu_docs, batch_size=32).cpu().detach().numpy() for himitsu_docs in himitsu_docs_data])
     print("End BERT encode")

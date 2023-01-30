@@ -107,6 +107,14 @@ poetry run streamlit run doraemon_himitsu_dogu_search/app.py
     - [docker起動時にエラー「[1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]」が発生した場合の対処法 | mebee](https://mebee.info/2020/04/13/post-9135/)
     - `sudo sysctl -w vm.max_map_count=262144`
 
+### `make build-index` 関連のエラー
+
+- CUDA out of memory
+  - 原因: RTX3060-12G では不足
+  - 対策1: ひとまずGPUを使わずCPUで対応。 `export CUDA_VISIBLE_DEVICES=`
+  - 対策2: bertでエンコードする際の分割数を変更。 `n=320` -> `n=160`
+
+
 ### poetry環境の用意
 
 これが一番の難点だった。自分が pyenv + pyenv-virtualenv 環境を常用しているせいと、ubuntu20.04標準ではpython 3.8だが、今回はpython 3.10を必要とするせいだろう、巷の記事とは異なる挙動を示していた。
