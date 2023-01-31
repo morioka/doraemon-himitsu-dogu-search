@@ -155,3 +155,4 @@ poetry install
 
 - [ElasticsearchのIngest Pipelineでtext embeddingを埋め込む & サクッとKNN+BM25のHybrid Searchを試せるリポジトリを作った - ときどき起きる](https://hit-the-sack.hatenablog.com/entry/TestingHybridSearchWithElasticsearch)にならって、ハイブリッド検索での重みづけ指定UIを追加。
   - [pakio/EsBM25SemanticHybridComparison: (Demo) Elasticsearch with ML node and ingest pipeline for hybrid search (Lexical + Semantic)](https://github.com/pakio/EsBM25SemanticHybridComparison)
+- 近似近傍探索の類似度尺度をL2距離からコサイン類似度に変更。
