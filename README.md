@@ -157,3 +157,9 @@ poetry install
   - [pakio/EsBM25SemanticHybridComparison: (Demo) Elasticsearch with ML node and ingest pipeline for hybrid search (Lexical + Semantic)](https://github.com/pakio/EsBM25SemanticHybridComparison)
 - 近似近傍探索の類似度尺度をL2距離からコサイン類似度に変更。
 - `sentens`, `sentents` など `sentence` の typo 修正
+
+### その他 (2023-02-01)
+
+- elasticsearch起動時のGeoIPデータのダウンロードを抑制
+- sudachi system_full.dic を system_core.dic に読み替え
+- sudachi pos_filter, word_filterを追加。助動詞などストップワードの扱い。 [Elasticsearch NEXT STEP](https://www.impressrd.jp/news/detail/128)(ISBN 978-4- 8443-9898-1)に倣う。

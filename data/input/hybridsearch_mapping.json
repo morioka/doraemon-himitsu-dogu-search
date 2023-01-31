@@ -8,6 +8,24 @@
               "discard_punctuation": true
             }
           },
+          "filter": {
+            "pos_filter": {
+              "type": "sudachi_part_of_speech",
+              "stoptags": [
+                "助詞",
+                "助動詞",
+                "補助記号,句点",
+                "補助記号,読点"
+              ]
+            },
+            "word_filter": {
+              "type": "sudachi_ja_stop",
+              "stoptags": [
+                "_japanese_",
+                "は"
+              ]
+            }
+          },
           "analyzer": {
             "custome_ja_analyzer": {
               "type": "custom",
@@ -24,7 +42,10 @@
               ]
             }, 
             "sudachi_analyzer": {
-              "filter": [],
+              "filter": [
+                "pos_filter",
+                "word_filter"
+              ],
               "type": "custom",
               "tokenizer": "sudachi_tokenizer"
             }
