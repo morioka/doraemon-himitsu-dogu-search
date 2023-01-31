@@ -142,6 +142,7 @@ poetry install
   - 対策2: bertでエンコードする際の分割数を変更する。 `n=320` -> `n=160`
 
 ### その他 (2022-11-03)
+
 - コンテナ `es01` にはボリューム `-v /usr/share/elasticsearch/data` が指定されている。指定方法からわかるように、このボリュームは揮発性である。
 
 ### その他 (2023-01-30)
@@ -150,3 +151,7 @@ poetry install
 - analyzer に [elasticsearch-sudachi](https://github.com/WorksApplications/elasticsearch-sudachi) を指定できるよう修正した。
 - `sentents_bert.py` など、 "sentence" でなく、わざと "sentents" ?
 
+### その他 (2023-01-31)
+
+- [ElasticsearchのIngest Pipelineでtext embeddingを埋め込む & サクッとKNN+BM25のHybrid Searchを試せるリポジトリを作った - ときどき起きる](https://hit-the-sack.hatenablog.com/entry/TestingHybridSearchWithElasticsearch)にならって、ハイブリッド検索での重みづけ指定UIを追加。
+  - [pakio/EsBM25SemanticHybridComparison: (Demo) Elasticsearch with ML node and ingest pipeline for hybrid search (Lexical + Semantic)](https://github.com/pakio/EsBM25SemanticHybridComparison)

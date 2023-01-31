@@ -15,6 +15,8 @@ def main():
 
     st.write("ドラえもんひみつ道具検索エンジン")
     st.text_input("検索キーワード (探したい道具の説明を入れてね)", key="query")
+    bm25_weight = st.slider(label='BM25 weight', min_value=0.0, max_value=10.0, value=1.0)
+    vector_weight = st.slider(label='Vector weight', min_value=0.0, max_value=10.0, value=1.0)
 
     model = sentents_bert.SentenceBertJapanese(MODEL_NAME)
     sentence_embeddings = model.encode([st.session_state.query], batch_size=1)
@@ -37,12 +39,13 @@ def main():
     # NOTE: score = match score + ann score
     hybrid_query: dict = {
         "size": TOP_K,
-        "query": {"multi_match": {"query": st.session_state.query, "fields": ["name", "description"]}},
+        "query": {"multi_match": {"query": st.session_state.query, "fields": ["name", "description"], "boost": bm25_weight}},
         "knn": {
             "field": "vector",
             "query_vector": sentence_embeddings[0],
             "k": TOP_K,
             "num_candidates": 100,
+            "boost": vector_weight
         },
     }
 
