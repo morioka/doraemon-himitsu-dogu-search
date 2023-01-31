@@ -5,8 +5,7 @@
             "sudachi_tokenizer": {
               "sudachi_split": "search",
               "type": "sudachi_tokenizer",
-              "discard_punctuation": true,
-              "additional_settings": "{\"systemDict\":\"system_full.dic\"}"
+              "discard_punctuation": true
             }
           },
           "analyzer": {
