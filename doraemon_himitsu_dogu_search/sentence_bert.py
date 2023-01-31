@@ -1,5 +1,5 @@
 """
-SentensBert for Japanese.
+SentenceBert for Japanese.
 
 Based on this script https://huggingface.co/sonoisa/sentence-bert-base-ja-mean-tokens-v2
 Thank you for sharing the awesome model.

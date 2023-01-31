@@ -1,13 +1,13 @@
 import json
 
 import numpy as np
-import sentents_bert
+import sentence_bert
 
-from data import HIMITSU_DOGU_DATA_PATH, MODEL_NAME, SENTENTS_VECTOR_DATA_PATH
+from data import HIMITSU_DOGU_DATA_PATH, MODEL_NAME, SENTENCE_VECTOR_DATA_PATH
 
 
 def main():
-    model = sentents_bert.SentenceBertJapanese(MODEL_NAME)
+    model = sentence_bert.SentenceBertJapanese(MODEL_NAME)
 
     with open(HIMITSU_DOGU_DATA_PATH, "r") as f:
         himitsu_dogus = json.load(f)
@@ -23,7 +23,7 @@ def main():
     print("End BERT encode")
 
     print("Start serialization as numpy file")
-    np.save(SENTENTS_VECTOR_DATA_PATH, sentence_embeddings)
+    np.save(SENTENCE_VECTOR_DATA_PATH, sentence_embeddings)
     print("End serialization")
 
 

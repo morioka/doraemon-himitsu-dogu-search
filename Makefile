@@ -30,8 +30,8 @@ get-es-cert:
 build-index: get-es-cert
 	@echo "Make structured data from raw data"
 	poetry run python $(SRC)/preprocess.py
-	@echo "Run sentens vectorizer"
-	poetry run python $(SRC)/sentents_bert_vectorizer.py
+	@echo "Run sentence vectorizer"
+	poetry run python $(SRC)/sentence_bert_vectorizer.py
 	@echo "Run Elasticsearch indexing job"
 	poetry run python $(SRC)/indexer.py
 

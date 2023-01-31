@@ -12,12 +12,12 @@ from data import (
     HIMITSU_DOGU_DATA_PATH,
     INDEX_NAME,
     MAPPING_PATH,
-    SENTENTS_VECTOR_DATA_PATH,
+    SENTENCE_VECTOR_DATA_PATH,
 )
 
 if __name__ == "__main__":
 
-    himitsu_dogu_sentents_vectors = np.load(SENTENTS_VECTOR_DATA_PATH)
+    himitsu_dogu_sentence_vectors = np.load(SENTENCE_VECTOR_DATA_PATH)
 
     with open(HIMITSU_DOGU_DATA_PATH, "r") as f:
         himitsu_dogus = json.load(f)
@@ -35,6 +35,6 @@ if __name__ == "__main__":
 
     es.indices.create(index=INDEX_NAME, mappings=mapping["mappings"], settings=mapping["settings"])
 
-    for himitsu_dogu, vector in tqdm(zip(himitsu_dogus, himitsu_dogu_sentents_vectors)):
+    for himitsu_dogu, vector in tqdm(zip(himitsu_dogus, himitsu_dogu_sentence_vectors)):
         himitsu_dogu["vector"] = vector.tolist()
         resp = es.index(index=INDEX_NAME, id=himitsu_dogu["id"], document=himitsu_dogu)

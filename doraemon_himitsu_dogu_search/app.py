@@ -1,5 +1,5 @@
 import pandas as pd
-import sentents_bert
+import sentence_bert
 import streamlit as st
 from elasticsearch import Elasticsearch
 
@@ -18,7 +18,7 @@ def main():
     bm25_weight = st.slider(label='BM25 weight', min_value=0.0, max_value=10.0, value=1.0)
     vector_weight = st.slider(label='Vector weight', min_value=0.0, max_value=10.0, value=1.0)
 
-    model = sentents_bert.SentenceBertJapanese(MODEL_NAME)
+    model = sentence_bert.SentenceBertJapanese(MODEL_NAME)
     sentence_embeddings = model.encode([st.session_state.query], batch_size=1)
     sentence_embeddings = sentence_embeddings.cpu().detach().numpy().tolist()
 

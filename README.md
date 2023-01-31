@@ -62,8 +62,8 @@ $ make build-index
 Get the certification for ElasticSearch
 Make structured data from raw data
 poetry run python doraemon_himitsu_dogu_search/preprocess.py
-Run sentens vectorizer
-poetry run python doraemon_himitsu_dogu_search/sentents_bert_vectorizer.py
+Run sentence vectorizer
+poetry run python doraemon_himitsu_dogu_search/sentence_bert_vectorizer.py
 Start BERT encode
 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 41/41 [03:02<00:00,  4.45s/it]
 End BERT encode
@@ -130,13 +130,13 @@ pip install poetry
 poetry install
 # poetry で、必要なパッケージと依存関係をインストール
 ```
-- `poetry run pyhton $(SRC)/sentents_bert_vectorizer.py` で OOM エラー
+- `poetry run pyhton $(SRC)/sentence_bert_vectorizer.py` で OOM エラー
   - 原因: CPUメモリ不足 (32GB RAMの場合)
   - 対策: encode を複数回に分けるようコード修正
     - これでも make から呼び出した場合などはメモリ不足に陥る。indexerを実行するまでは es を起動せずに 1ステップずつ実行するのがよさそうである。
   - 対策2: 実際には加工済のデータが置かれている。これをそのまま使える。
     - `data/output/himitsu_dogu_sentens_vector.npy` 
-- `poetry run pyhton $(SRC)/sentents_bert_vectorizer.py` で CUDA out of memory
+- `poetry run pyhton $(SRC)/sentence_bert_vectorizer.py` で CUDA out of memory
   - 原因: RTX3060-12G では不足
   - 対策1: GPUを使わずCPUで対応する。 `export CUDA_VISIBLE_DEVICES=`
   - 対策2: bertでエンコードする際の分割数を変更する。 `n=320` -> `n=160`
@@ -149,10 +149,11 @@ poetry install
 
 - elasticsarch 8.4 から elasticsearch 8.6 にアップデート。client API変更に追従した。
 - analyzer に [elasticsearch-sudachi](https://github.com/WorksApplications/elasticsearch-sudachi) を指定できるよう修正した。
-- `sentents_bert.py` など、 "sentence" でなく、わざと "sentents" ?
+
 
 ### その他 (2023-01-31)
 
 - [ElasticsearchのIngest Pipelineでtext embeddingを埋め込む & サクッとKNN+BM25のHybrid Searchを試せるリポジトリを作った - ときどき起きる](https://hit-the-sack.hatenablog.com/entry/TestingHybridSearchWithElasticsearch)にならって、ハイブリッド検索での重みづけ指定UIを追加。
   - [pakio/EsBM25SemanticHybridComparison: (Demo) Elasticsearch with ML node and ingest pipeline for hybrid search (Lexical + Semantic)](https://github.com/pakio/EsBM25SemanticHybridComparison)
 - 近似近傍探索の類似度尺度をL2距離からコサイン類似度に変更。
+- `sentens`, `sentents` など `sentence` の typo 修正
