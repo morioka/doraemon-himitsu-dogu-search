@@ -162,4 +162,4 @@ poetry install
 
 - elasticsearch起動時のGeoIPデータのダウンロードを抑制
 - sudachi system_full.dic を system_core.dic に読み替え
-- sudachi pos_filter, word_filterを追加。助動詞などストップワードの扱い。 [Elasticsearch NEXT STEP](https://www.impressrd.jp/news/detail/128)(ISBN 978-4- 8443-9898-1)に倣う。
+- sudachi pos_filter, word_filterを追加。助動詞などストップワードの扱い。 [Elasticsearch NEXT STEP](https://news.nextpublishing.jp/news/detail/128/)(ISBN 978-4- 8443-9898-1)に倣う。
