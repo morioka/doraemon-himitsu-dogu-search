@@ -175,6 +175,6 @@ pyenv install 3.10.8
 pyenv local 3.10.8
 curl -sSL https://install.python-poetry.org | python3 -
 
-poetry config virtualenvs.prefer-active-python true  # ??
+poetry config virtualenvs.prefer-active-python true  # Use currently activated Python version to create a new virtual environment.  If set to false, Python version used during Poetry installation is used.
 poetry install
 ```
