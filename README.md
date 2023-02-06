@@ -163,3 +163,18 @@ poetry install
 - elasticsearch起動時のGeoIPデータのダウンロードを抑制
 - sudachi system_full.dic を system_core.dic に読み替え
 - sudachi pos_filter, word_filterを追加。助動詞などストップワードの扱い。 [Elasticsearch NEXT STEP](https://news.nextpublishing.jp/news/detail/128/)(ISBN 978-4- 8443-9898-1)に倣う。
+
+### その他 (2023-02-06)
+
+- `elasticsearch-plugin install` をオフラインでインストール。proxy環境でも素直に動くように。
+- pyenv + pyenv-virtualenv 環境から、本来の pyenv + poetry 環境へ移行。本当にこれでよいのか?
+
+```bash
+cd doraemon-himitsu-dogu-search
+pyenv install 3.10.8
+pyenv local 3.10.8
+curl -sSL https://install.python-poetry.org | python3 -
+
+poetry config virtualenvs.prefer-active-python true  # ??
+poetry install
+```
