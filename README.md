@@ -178,3 +178,11 @@ curl -sSL https://install.python-poetry.org | python3 -
 poetry config virtualenvs.prefer-active-python true  # Use currently activated Python version to create a new virtual environment.  If set to false, Python version used during Poetry installation is used.
 poetry install
 ```
+
+### その他 (2023-02-11)
+
+- `doraemon_himitsu_dogu_search/sentence_bert_vectorizer.py` を元に戻そうとしたが、CUDA out of memory。そのままとする。
+- TODO: ベクトル化処理をバックエンド側に回す
+  - [ElasticsearchでSudachiとベクトル検索を組み合わせて使う方法 ②ベクトル検索編 | 株式会社AI Shift](https://www.ai-shift.co.jp/techblog/460)
+  - [Hironsan/bertsearch: Elasticsearch with BERT for advanced document search.](https://github.com/Hironsan/bertsearch)
+  - [bert-as-serviceを使って日本語BERTの文エンベディング計算サーバーを作る - Qiita](https://qiita.com/shimaokasonse/items/97d971cd4a65eee43735)
