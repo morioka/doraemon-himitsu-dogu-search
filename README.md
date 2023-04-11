@@ -149,11 +149,11 @@ poetry run streamlit run doraemon_himitsu_dogu_search/app.py
 
 - 文埋め込み処理をバックエンド側に回す
   - 文埋め込み処理をバックエンドに回したいが、世にある記事の大半はフロントエンド側で対応する形。文埋め込み処理用のサーバを用意する例もあるが、それをフロントエンドで呼び、その結果を合わせてElasticsearchに投げる必要がある。ラッパーAPIを用意するのでなく、バックエンドにまかせたい。
-    - [ElasticsearchでSudachiとベクトル検索を組み合わせて使う方法 ②ベクトル検索編 | 株式会社AI Shift](https://www.ai-shift.co.jp/techblog/460)
-    - [Hironsan/bertsearch: Elasticsearch with BERT for advanced document search.](https://github.com/Hironsan/bertsearch)
-    - [bert-as-serviceを使って日本語BERTの文エンベディング計算サーバーを作る - Qiita](https://qiita.com/shimaokasonse/items/97d971cd4a65eee43735)
+    - [ElasticsearchでSudachiとベクトル検索を組み合わせて使う方法 ②ベクトル検索編 | 株式会社AI Shift](https://www.ai-shift.co.jp/techblog/460) (2020-01-28)
+    - [Hironsan/bertsearch: Elasticsearch with BERT for advanced document search.](https://github.com/Hironsan/bertsearch) (2020-11-24)
+    - [bert-as-serviceを使って日本語BERTの文エンベディング計算サーバーを作る - Qiita](https://qiita.com/shimaokasonse/items/97d971cd4a65eee43735) (2019-04-20)
   - Elasticsearch Basic License ではサポートされず、Trial License 以上が必要になるが、Ingest Pipeline を利用するのが素直な解決策だろう。 
-    - [ElasticsearchのIngest Pipelineでtext embeddingを埋め込む & サクッとKNN+BM25のHybrid Searchを試せるリポジトリを作った - ときどき起きる](https://hit-the-sack.hatenablog.com/entry/TestingHybridSearchWithElasticsearch)
-    - [pakio/EsBM25SemanticHybridComparison: (Demo) Elasticsearch with ML node and ingest pipeline 
+    - [ElasticsearchのIngest Pipelineでtext embeddingを埋め込む & サクッとKNN+BM25のHybrid Searchを試せるリポジトリを作った - ときどき起きる](https://hit-the-sack.hatenablog.com/entry/TestingHybridSearchWithElasticsearch) (2022-12-04)
+    - [pakio/EsBM25SemanticHybridComparison: (Demo) Elasticsearch with ML node and ingest pipeline](https://github.com/pakio/EsBM25SemanticHybridComparison) (2022-12-04)
 
 以上
